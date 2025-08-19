@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Christian Emmanuel - Portfolio Informaticien</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-canvas"></div>
+    <div class="bg-particles" id="particles"></div>
+
+    <header class="header">
+      <nav class="nav">
+        <div class="logo">MonPortfolio</div>
+        <ul class="nav-menu">
+          <li><a href="#home" class="nav-link active">Accueil</a></li>
+          <li><a href="#projects" class="nav-link">Projets</a></li>
+          <li><a href="#skills" class="nav-link">Compétences</a></li>
+          <li><a href="#experience" class="nav-link">Expérience</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <section id="home" class="hero">
+      <div class="hero-grid">
+        <div class="hero-content">
+          <span class="hero-badge">
+            <i class="fas fa-code"></i>
+            Développeur Full-Stack
+          </span>
+          <h1 class="hero-title">
+            <span class="hero-gradient">TITI BENIE</span><br />
+            CHRISTIAN SKY<br />
+            EMMANUEL
+          </h1>
+          <p class="hero-subtitle">
+            Passionné par l'innovation technologique, je conçois des solutions
+            digitales modernes et performantes. Spécialisé en développement web,
+            analyse de données et systèmes d'information.
+          </p>
+          <div class="hero-buttons">
+            <a href="#projects" class="btn btn-primary">
+              <i class="fas fa-rocket"></i>
+              Voir mes projets
+            </a>
+            <a href="#contact" class="btn btn-secondary">
+              <i class="fas fa-envelope"></i>
+              Me contacter
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="visual-card">
+            <div class="code-preview">
+              <div class="code-line">
+                <span class="code-keyword">const</span>
+                <span class="code-function">developer</span> = {
+              </div>
+              <div class="code-line">
+                &nbsp;&nbsp;<span class="code-string">'name'</span>:
+                <span class="code-string">'Christian Emmanuel'</span>,
+              </div>
+              <div class="code-line">
+                &nbsp;&nbsp;<span class="code-string">'skills'</span>: [<span
+                  class="code-string"
+                  >'JavaScript'</span
+                >, <span class="code-string">'Python'</span>,
+                <span class="code-string">'Java'</span>],
+              </div>
+              <div class="code-line">
+                &nbsp;&nbsp;<span class="code-string">'passion'</span>:
+                <span class="code-string">'Innovation & Tech'</span>
+              </div>
+              <div class="code-line">};</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">
+            <i class="fas fa-laptop-code"></i>
+            Mes réalisations
+          </span>
+          <h2 class="section-title">Projets Réalisés</h2>
+          <p class="section-subtitle">
+            Découvrez mes derniers projets alliant innovation, performance et
+            design moderne
+          </p>
+        </div>
+
+        <div class="projects-grid">
+          <div class="project-card">
+            <div class="project-image">
+              <img src="img/sitec.jpeg" alt="Dashboard Auto-École" />
+            </div>
+            <div class="project-content">
+              <div class="project-meta">
+                <span class="project-tag">Présentation</span>
+                <span class="project-tag">Services</span>
+                <span class="project-tag">Formulaire</span>
+              </div>
+              <h3 class="project-title">
+                Site complet de présentation - SITEC
+              </h3>
+              <p class="project-description">
+                SITEC est une société d'innovation technologique offrant des
+                solutions complètes dans les domaines de l'électricité, de
+                l'automatisme, de l'instrumentation, de l'électronique, des
+                systèmes de sécurité, du négoce et de l'électromécanique.
+              </p>
+              <div class="project-tech">
+                <span class="tech-item">JavaScript</span>
+                <span class="tech-item">HTML/CSS</span>
+                <span class="tech-item">Bootstrap</span>
+                <span class="tech-item">SASS</span>
+              </div>
+              <br />
+              <div class="project-links">
+                <a
+                  href="https://skyemm1332.github.io/SITETC/"
+                  class="project-link"
+                  target="_blank"
+                >
+                  <i class="fas fa-external-link-alt"></i>
+                  Demo Live
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-image">
+              <img src="img/securite.png" alt="Système PROSUMA" />
+            </div>
+            <div class="project-content">
+              <div class="project-meta">
+                <span class="project-tag">Sensibilisation</span>
+                <span class="project-tag">Authentification</span>
+                <span class="project-tag">Formation</span>
+              </div>
+              <h3 class="project-title">
+                Campagne de Sensibilisation contre les cyber-attaques
+              </h3>
+              <p class="project-description">
+                Solution complète de gestion d'inventaire avec dashboards
+                centralisés, suivi des stocks en temps réel et reporting
+                automatisé pour optimiser les opérations.
+              </p>
+              <br />
+              <div class="project-tech">
+                <span class="tech-item">Bootstrap</span>
+                <span class="tech-item">HTML/CSS</span>
+                <span class="tech-item">JavaScript</span>
+                <span class="tech-item">SCSS</span>
+                <span class="tech-item">PHP (Django)</span>
+              </div>
+              <div class="project-links">
+                <a
+                  href="https://skyemm1332.github.io/secureInfo/"
+                  class="project-link"
+                  target="_blank"
+                >
+                  <i class="fas fa-external-link-alt"></i>
+                  Demo Live
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div
+              class="project-image"
+              onclick="openLightbox('img/autoEcole.png')"
+              style="cursor: pointer"
+            >
+              <img src="img/autoEcole.png" alt="7Greens Films" />
+              <div class="project-overlay">
+                <a href="#" class="btn">
+                  <i class="fas fa-eye"></i>
+                  Voir Les images
+                </a>
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-meta">
+                <span class="project-tag">Gestion</span>
+                <span class="project-tag">Administration</span>
+                <span class="project-tag">Candidats</span>
+                <span class="project-tag">Documents</span>
+              </div>
+              <h3 class="project-title">Gestion AutoEcole</h3>
+              <br />
+              <p class="project-description">
+                Une application métier pour les utilisateurs et un dashboard
+                d'administration pour l'administrateur permettent de gérer les
+                candidats, les documents et les auto-écoles en utilisant des
+                outils de gestion digitalisés.
+              </p>
+              <br />
+              <div class="project-tech">
+                <span class="tech-item">JavaScript</span>
+                <span class="tech-item">React</span>
+                <span class="tech-item">TypeScript</span>
+                <span class="tech-item">MongoDB</span>
+                <span class="tech-item">ApiRest</span>
+                <span class="tech-item">GitHub</span>
+                <span class="tech-item">YML</span>
+                <span class="tech-item">HTML/CSS</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-image">
+              <div
+                class="project-image"
+                onclick="openFideliteLightbox('img/fidelite/1.jpg')"
+                style="cursor: pointer"
+              >
+                <img src="img/fidelite/1.jpg" alt="fidelity" />
+                <div class="project-overlay">
+                  <a href="#" class="btn">
+                    <i class="fas fa-eye"></i>
+                    Voir les images
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="project-content">
+              <div class="project-meta">
+                <span class="project-tag">Production</span>
+                <span class="project-tag">Management</span>
+              </div>
+              <h3 class="project-title">Gestion des cartes de fidélité</h3>
+              <p class="project-description">
+                Outil de gestion de production audiovisuelle avec planification
+                des équipes, suivi des projets en temps réel et tableaux de bord
+                visuels pour le monitoring.
+              </p>
+              <div class="project-tech">
+                <span class="tech-item">HTML/CSS</span>
+                <span class="tech-item">JavaScript</span>
+                <span class="tech-item">Node.js</span>
+                <span class="tech-item">PostGreSQL</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-image">
+              <img src="img/consult.png" alt="Analytics Platform" />
+            </div>
+            <div class="project-content">
+              <div class="project-meta">
+                <span class="project-tag">Présentation</span>
+                <span class="project-tag">TOP 5</span>
+                <span class="project-tag">FLOP 5</span>
+              </div>
+              <h3 class="project-title">Plateforme de présentation</h3>
+              <p class="project-description">
+                Presentation journalier depuis la brvm, le TOP 5, le FLOP 5.
+              </p> <br>
+              <div class="project-tech">
+                <span class="tech-item">HTML/CSS</span>
+                <span class="tech-item">JavaScript</span>
+                <span class="tech-item">Python (Scraping)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-image" 
+                onclick="dashboard('img/anomalie.png')"
+                style="cursor: pointer">
+              <img
+                src="img/anomalie.png"
+                alt="7Greens Films"
+              />
+            </div>
+            <div class="project-content">
+              <div class="project-meta">
+                <span class="project-tag">Excel</span>
+                <span class="project-tag">Power Query</span>
+                <span class="project-tag">Back Office</span>
+              </div>
+              <h3 class="project-title">Suivi des anomalies</h3>
+              <p class="project-description">
+                Dashboard de suivi des anomalies rencontrées dans certains magasins de PROSUMA.
+              </p> <br>
+              <div class="project-tech">
+                <span class="tech-item">JavaScript</span>
+                <span class="tech-item">Node.js</span>
+                <span class="tech-item">MongoDB</span>
+                <span class="tech-item">D3.js</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">
+            <i class="fas fa-tools"></i>
+            Expertise technique
+          </span>
+          <h2 class="section-title">Compétences & Technologies</h2>
+          <p class="section-subtitle">
+            Un arsenal technologique moderne pour créer des solutions innovantes
+            et performantes
+          </p>
+        </div>
+
+        <div class="skills-container">
+          <div class="skill-card">
+            <div class="skill-icon">
+              <i class="fas fa-code"></i>
+            </div>
+            <h3 class="skill-title">Développement</h3>
+            <p class="skill-description">
+              Maîtrise des langages modernes pour créer des applications
+              robustes
+            </p>
+            <div class="skill-items">
+              <span class="skill-item">JavaScript</span>
+              <span class="skill-item">Python</span>
+              <span class="skill-item">Java</span>
+              <span class="skill-item">VBA</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon">
+              <i class="fas fa-globe"></i>
+            </div>
+            <h3 class="skill-title">Technologies Web</h3>
+            <p class="skill-description">
+              Stack complète pour développer des interfaces utilisateur modernes
+              et responsive
+            </p>
+            <div class="skill-items">
+              <span class="skill-item">HTML</span>
+              <span class="skill-item">CSS</span>
+              <span class="skill-item">Git</span>
+              <span class="skill-item">JavaScript</span>
+              <span class="skill-item">React</span>
+              <span class="skill-item">Node.js</span>
+              <span class="skill-item">TypeScript</span>
+              <span class="skill-item">Bootstrap</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <h3 class="skill-title">Data & Analytics</h3>
+            <p class="skill-description">
+              Outils puissants pour transformer les données en insights business
+              actionables
+            </p>
+            <div class="skill-items">
+              <span class="skill-item">Power BI</span>
+              <span class="skill-item">Google Analytics</span>
+              <span class="skill-item">Excel Avancé</span>
+              <span class="skill-item">Tableau</span>
+              <span class="skill-item">SQL</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon">
+              <i class="fas fa-cogs"></i>
+            </div>
+            <h3 class="skill-title">Systèmes & Design</h3>
+            <p class="skill-description">
+              Écosystème complet d'outils pour concevoir et déployer des
+              solutions professionnelles
+            </p>
+            <div class="skill-items">
+              <span class="skill-item">Odoo ERP</span>
+              <span class="skill-item">WordPress</span>
+              <span class="skill-item">Adobe Suite</span>
+              <span class="skill-item">Figma</span>
+              <span class="skill-item">Canva Pro</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon">
+              <i class="fas fa-database"></i>
+            </div>
+            <h3 class="skill-title">Base de données</h3>
+            <p class="skill-description">
+              Stockage structuré et fiable pour gérer, organiser et sécuriser les informations
+            </p>
+            <div class="skill-items">
+              <span class="skill-item">SQL</span>
+              <span class="skill-item">MySQL</span>
+              <span class="skill-item">MongoDB (Atlas & Compass)</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon">
+              <i class="fas fa-desktop"></i>
+            </div>
+            <h3 class="skill-title">Bureautique</h3>
+            <p class="skill-description">
+              Outils essentiels pour optimiser la productivité et simplifier le travail quotidien
+            </p>
+            <div class="skill-items">
+              <span class="skill-item">Pack Office</span>
+              <span class="skill-item">Google Workspace</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon">
+              <i class="fas fa-server"></i>
+            </div>
+            <h3 class="skill-title">ERP & CMS</h3>
+            <p class="skill-description">
+              Solutions intégrées pour gérer efficacement les processus métiers et les contenus en ligne
+            </p>
+            <div class="skill-items">
+              <span class="skill-item">Odoo ERP</span>
+              <span class="skill-item">WordPress</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon">
+                  <i class="fas fa-robot"></i>
+            </div>
+            <h3 class="skill-title">Outils d’assistance IA</h3>
+            <p class="skill-description">
+              Solutions intelligentes pour automatiser les tâches, accélérer la prise de décision et booster la production
+            </p>
+            <div class="skill-items">
+              <span class="skill-item">GitHub Copilot</span>
+              <span class="skill-item">ChatGPT</span>
+              <span class="skill-item">Claude</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">
+            <i class="fas fa-briefcase"></i>
+            Parcours professionnel
+          </span>
+          <h2 class="section-title">Expérience Professionnelle</h2>
+          <p class="section-subtitle">
+            Une progression constante à travers des missions variées et
+            enrichissantes
+          </p>
+        </div>
+
+        <div class="experience-timeline">
+          <div class="timeline-line"></div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-card">
+                <span class="timeline-date">Depuis Juin 2025</span>
+                <h3 class="timeline-title">Assistant Informatique</h3>
+                <p class="timeline-company">PROSUMA - Treichville</p>
+                <ul class="timeline-tasks">
+                  <li>
+                    Résolution complète des incidents signalés par les magasins
+                  </li>
+                  <li>
+                    Assistance technique et remontée proactive des anomalies
+                  </li>
+                  <li>
+                    Identification et implémentation des axes d'amélioration
+                  </li>
+                  <li>Support utilisateur et formation aux nouveaux outils</li>
+                </ul>
+              </div>
+            </div>
+            <div class="timeline-dot"></div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-card">
+                <span class="timeline-date">Juillet 2024 - Mai 2025</span>
+                <h3 class="timeline-title">
+                  Stagiaire Technicien Informatique
+                </h3>
+                <p class="timeline-company">PROSUMA - Treichville</p>
+                <ul class="timeline-tasks">
+                  <li>
+                    Déploiement sur site et coordination des installations
+                    techniques
+                  </li>
+                  <li>Conception et intégration de dashboards centralisés</li>
+                  <li>Gestion proactive des incidents et reporting régulier</li>
+                  <li>Optimisation des processus de gestion d'articles</li>
+                </ul>
+              </div>
+            </div>
+            <div class="timeline-dot"></div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-card">
+                <span class="timeline-date">Avril - Juin 2024</span>
+                <h3 class="timeline-title">
+                  Responsable Opération - Production Junior
+                </h3>
+                <p class="timeline-company">7Greens Films Productions</p>
+                <ul class="timeline-tasks">
+                  <li>Élaboration stratégique des plannings de production</li>
+                  <li>Supervision des équipes techniques et artistiques</li>
+                  <li>
+                    Mise en place de solutions visuelles de suivi de projets
+                  </li>
+                  <li>Coordination des ressources et gestion des délais</li>
+                </ul>
+              </div>
+            </div>
+            <div class="timeline-dot"></div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-content">
+              <div class="timeline-card">
+                <span class="timeline-date">Depuis 2020</span>
+                <h3 class="timeline-title">
+                  Informaticien (Prestation externe)
+                </h3>
+                <p class="timeline-company">EMMARRY AUTO ECOLE - Koumassi</p>
+                <ul class="timeline-tasks">
+                  <li>Conception d'un dashboard de suivi optimisé</li>
+                  <li>Digitalisation complète des processus internes</li>
+                  <li>Développement d'un système de gestion des candidats</li>
+                  <li>Formation du personnel et maintenance continue</li>
+                </ul>
+              </div>
+            </div>
+            <div class="timeline-dot"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">
+            <i class="fas fa-paper-plane"></i>
+            Contactez-moi
+          </span>
+          <h2 class="section-title">Prêt pour de nouveaux défis</h2>
+          <p class="section-subtitle">
+            Discutons de vos projets et collaborons pour créer des solutions
+            innovantes
+          </p>
+        </div>
+
+        <div class="contact-container">
+          <div class="contact-info">
+            <h3
+              style="
+                margin-bottom: 2rem;
+                font-size: 1.5rem;
+                color: var(--light);
+              "
+            >
+              Informations de contact
+            </h3>
+            <div class="contact-items">
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-phone"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Téléphone</h4>
+                  <span>+225 07 57 54 2494</span>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Email</h4>
+                  <span>christianemmanuelt031@gmail.com</span>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Localisation</h4>
+                  <span>Treichville, Abidjan, Côte d'Ivoire</span>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-link"></i>
+                </div>
+                <div class="contact-details">
+                  <h4>Portfolio en ligne</h4>
+                  <span>bento.me/skyemmanuel</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-visual">
+            <div class="contact-card">
+              <div class="availability-badge">
+                <div class="availability-dot"></div>
+                Disponible pour de nouveaux projets
+              </div>
+              <p
+                style="
+                  color: var(--gray);
+                  line-height: 1.6;
+                  margin-bottom: 2rem;
+                "
+              >
+                Actuellement à la recherche d'opportunités passionnantes dans le
+                domaine de l'informatique. N'hésitez pas à me contacter pour
+                discuter de vos projets !
+              </p>
+              <div style="display: flex; gap: 1rem; justify-content: center">
+                <a
+                  href="mailto:christianemmanuelt031@gmail.com"
+                  class="btn btn-primary"
+                >
+                  <i class="fas fa-envelope"></i>
+                  Envoyer un email
+                </a>
+                <a href="tel:+22507575424254" class="btn btn-secondary">
+                  <i class="fas fa-phone"></i>
+                  Appeler
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script src="script.js"></script>
+    <!-- Lightbox pour visualiser plusieurs images -->
+    <div
+      id="lightbox"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      "
+    >
+      <span
+        id="lightbox-close"
+        style="
+          position: absolute;
+          top: 30px;
+          right: 40px;
+          font-size: 2rem;
+          color: #fff;
+          cursor: pointer;
+        "
+        >&times;</span
+      >
+      <button
+        id="lightbox-prev"
+        style="
+          position: absolute;
+          left: 40px;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 2rem;
+          color: #fff;
+          background: none;
+          border: none;
+          cursor: pointer;
+        "
+      >
+        &#10094;
+      </button>
+      <img
+        id="lightbox-img"
+        src=""
+        alt="Image projet"
+        style="
+          max-width: 80vw;
+          max-height: 80vh;
+          border-radius: 10px;
+          box-shadow: 0 0 30px #000;
+        "
+      />
+      <button
+        id="lightbox-next"
+        style="
+          position: absolute;
+          right: 40px;
+          top: 50%;
+          transform: translateY(-50%);
+          font-size: 2rem;
+          color: #fff;
+          background: none;
+          border: none;
+          cursor: pointer;
+        "
+      >
+        &#10095;
+      </button>
+    </div>
+  </body>
+</html>
