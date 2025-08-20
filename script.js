@@ -1,3 +1,21 @@
+// Hamburger menu mobile
+function toggleMobileMenu() {
+  var menu = document.getElementById("navMenuMobile");
+  if (menu.classList.contains("open")) {
+    menu.classList.remove("open");
+  } else {
+    menu.classList.add("open");
+  }
+}
+// Ferme le menu mobile au clic sur un lien
+document.addEventListener("DOMContentLoaded", function () {
+  var mobileLinks = document.querySelectorAll(".nav-menu-mobile .nav-link");
+  mobileLinks.forEach(function (link) {
+    link.addEventListener("click", function () {
+      document.getElementById("navMenuMobile").classList.remove("open");
+    });
+  });
+});
 // Lightbox multi-images pour la div fidélité
 const fideliteImages = [
   "img/fidelite/1.jpg",
@@ -5,7 +23,6 @@ const fideliteImages = [
   "img/fidelite/3.png",
 ];
 let currentFideliteIndex = 0;
-
 
 function openFideliteLightbox(imgSrc) {
   currentFideliteIndex = fideliteImages.indexOf(imgSrc);

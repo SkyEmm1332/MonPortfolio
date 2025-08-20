@@ -17,8 +17,24 @@
     <header class="header">
       <nav class="nav">
         <div class="logo">MonPortfolio</div>
+        <button
+          class="nav-toggle"
+          aria-label="Ouvrir le menu"
+          onclick="toggleMobileMenu()"
+        >
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+          <span class="nav-toggle-bar"></span>
+        </button>
         <ul class="nav-menu">
           <li><a href="#home" class="nav-link active">Accueil</a></li>
+          <li><a href="#projects" class="nav-link">Projets</a></li>
+          <li><a href="#skills" class="nav-link">Compétences</a></li>
+          <li><a href="#experience" class="nav-link">Expérience</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+        </ul>
+        <ul class="nav-menu-mobile" id="navMenuMobile">
+          <li><a href="#home" class="nav-link">Accueil</a></li>
           <li><a href="#projects" class="nav-link">Projets</a></li>
           <li><a href="#skills" class="nav-link">Compétences</a></li>
           <li><a href="#experience" class="nav-link">Expérience</a></li>
@@ -41,6 +57,10 @@
           <span class="hero-badge">
             <i class="fas fa-code"></i>
             Graphiste
+          </span>
+          <span class="hero-badge">
+            <i class="fas fa-code"></i>
+            Monteur
           </span>
           <h1 class="hero-title">
             <span class="hero-gradient">TITI BENIE</span><br />
@@ -278,7 +298,8 @@
               <h3 class="project-title">Plateforme de présentation</h3>
               <p class="project-description">
                 Presentation journalier depuis la brvm, le TOP 5, le FLOP 5.
-              </p> <br>
+              </p>
+              <br />
               <div class="project-tech">
                 <span class="tech-item">HTML/CSS</span>
                 <span class="tech-item">JavaScript</span>
@@ -288,13 +309,12 @@
           </div>
 
           <div class="project-card">
-            <div class="project-image" 
-                onclick="dashboard('img/anomalie.png')"
-                style="cursor: pointer">
-              <img
-                src="img/anomalie.png"
-                alt="7Greens Films"
-              />
+            <div
+              class="project-image"
+              onclick="dashboard('img/anomalie.png')"
+              style="cursor: pointer"
+            >
+              <img src="img/anomalie.png" alt="7Greens Films" />
             </div>
             <div class="project-content">
               <div class="project-meta">
@@ -304,8 +324,10 @@
               </div>
               <h3 class="project-title">Suivi des anomalies</h3>
               <p class="project-description">
-                Dashboard de suivi des anomalies rencontrées dans certains magasins de PROSUMA.
-              </p> <br>
+                Dashboard de suivi des anomalies rencontrées dans certains
+                magasins de PROSUMA.
+              </p>
+              <br />
               <div class="project-tech">
                 <span class="tech-item">JavaScript</span>
                 <span class="tech-item">Node.js</span>
@@ -314,7 +336,6 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>
@@ -400,8 +421,6 @@
               solutions professionnelles
             </p>
             <div class="skill-items">
-              <span class="skill-item">Odoo ERP</span>
-              <span class="skill-item">WordPress</span>
               <span class="skill-item">Adobe Suite</span>
               <span class="skill-item">Figma</span>
               <span class="skill-item">Canva Pro</span>
@@ -414,7 +433,8 @@
             </div>
             <h3 class="skill-title">Base de données</h3>
             <p class="skill-description">
-              Stockage structuré et fiable pour gérer, organiser et sécuriser les informations
+              Stockage structuré et fiable pour gérer, organiser et sécuriser
+              les informations
             </p>
             <div class="skill-items">
               <span class="skill-item">SQL</span>
@@ -429,7 +449,8 @@
             </div>
             <h3 class="skill-title">Bureautique</h3>
             <p class="skill-description">
-              Outils essentiels pour optimiser la productivité et simplifier le travail quotidien
+              Outils essentiels pour optimiser la productivité et simplifier le
+              travail quotidien
             </p>
             <div class="skill-items">
               <span class="skill-item">Pack Office</span>
@@ -443,7 +464,8 @@
             </div>
             <h3 class="skill-title">ERP & CMS</h3>
             <p class="skill-description">
-              Solutions intégrées pour gérer efficacement les processus métiers et les contenus en ligne
+              Solutions intégrées pour gérer efficacement les processus métiers
+              et les contenus en ligne
             </p>
             <div class="skill-items">
               <span class="skill-item">Odoo ERP</span>
@@ -453,11 +475,12 @@
 
           <div class="skill-card">
             <div class="skill-icon">
-                  <i class="fas fa-robot"></i>
+              <i class="fas fa-robot"></i>
             </div>
             <h3 class="skill-title">Outils d’assistance IA</h3>
             <p class="skill-description">
-              Solutions intelligentes pour automatiser les tâches, accélérer la prise de décision et booster la production
+              Solutions intelligentes pour automatiser les tâches, accélérer la
+              prise de décision et booster la production
             </p>
             <div class="skill-items">
               <span class="skill-item">GitHub Copilot</span>
@@ -741,5 +764,17 @@
         &#10095;
       </button>
     </div>
+    <footer
+      style="
+        width: 100%;
+        text-align: center;
+        padding: 1rem 0;
+        color: var(--gray);
+        background: transparent;
+        font-size: 0.95rem;
+      "
+    >
+      &copy; 2025 Christian Emmanuel. Tous droits réservés.
+    </footer>
   </body>
 </html>
