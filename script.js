@@ -1,4 +1,4 @@
-// Hamburger menu mobile
+// Fonction pour gérer le menu mobile
 function toggleMobileMenu() {
   var menu = document.getElementById("navMenuMobile");
   if (menu.classList.contains("open")) {
@@ -7,7 +7,8 @@ function toggleMobileMenu() {
     menu.classList.add("open");
   }
 }
-// Ferme le menu mobile au clic sur un lien
+
+// Fermer le menu mobile au clic sur un lien
 document.addEventListener("DOMContentLoaded", function () {
   var mobileLinks = document.querySelectorAll(".nav-menu-mobile .nav-link");
   mobileLinks.forEach(function (link) {
@@ -16,6 +17,19 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+// Gestion des touches pour l'accessibilité
+function handleKeyDown(event, imgSrc) {
+  if (event.key === 'Enter' || event.key === ' ') {
+    event.preventDefault();
+    if (imgSrc.includes('fidelite')) {
+      openFideliteLightbox(imgSrc);
+    } else {
+      openLightbox(imgSrc);
+    }
+  }
+}
+
 // Lightbox multi-images pour la div fidélité
 const fideliteImages = [
   "img/fidelite/1.jpg",
@@ -27,27 +41,75 @@ let currentFideliteIndex = 0;
 function openFideliteLightbox(imgSrc) {
   currentFideliteIndex = fideliteImages.indexOf(imgSrc);
   if (currentFideliteIndex === -1) currentFideliteIndex = 0;
-  document.getElementById("lightbox-img").src =
-    fideliteImages[currentFideliteIndex];
+  document.getElementById("lightbox-img").src = fideliteImages[currentFideliteIndex];
   document.getElementById("lightbox").style.display = "flex";
+  
   // Remplace les handlers pour naviguer dans fidelite
   document.getElementById("lightbox-prev").onclick = showPrevFideliteImg;
   document.getElementById("lightbox-next").onclick = showNextFideliteImg;
 }
 
 function showPrevFideliteImg() {
-  currentFideliteIndex =
-    (currentFideliteIndex - 1 + fideliteImages.length) % fideliteImages.length;
-  document.getElementById("lightbox-img").src =
-    fideliteImages[currentFideliteIndex];
+  currentFideliteIndex = (currentFideliteIndex - 1 + fideliteImages.length) % fideliteImages.length;
+  document.getElementById("lightbox-img").src = fideliteImages[currentFideliteIndex];
 }
 
 function showNextFideliteImg() {
   currentFideliteIndex = (currentFideliteIndex + 1) % fideliteImages.length;
-  document.getElementById("lightbox-img").src =
-    fideliteImages[currentFideliteIndex];
+  document.getElementById("lightbox-img").src = fideliteImages[currentFideliteIndex];
 }
-// Particles animation
+
+// Lightbox multi-images pour la div autoEcole
+const autoEcoleImages = [
+  "img/autoEcole.png",
+  "img/Gestion/1.png",
+  "img/Gestion/2.png",
+  "img/Gestion/3.png",
+  "img/Gestion/4.png",
+  "img/Gestion/5.png",
+  "img/Gestion/6.png",
+];
+let currentImgIndex = 0;
+
+function openLightbox(imgSrc) {
+  currentImgIndex = autoEcoleImages.indexOf(imgSrc);
+  if (currentImgIndex === -1) currentImgIndex = 0;
+  document.getElementById("lightbox-img").src = autoEcoleImages[currentImgIndex];
+  document.getElementById("lightbox").style.display = "flex";
+  
+  // Restaure les handlers par défaut
+  document.getElementById("lightbox-prev").onclick = showPrevImg;
+  document.getElementById("lightbox-next").onclick = showNextImg;
+}
+
+function showPrevImg() {
+  currentImgIndex = (currentImgIndex - 1 + autoEcoleImages.length) % autoEcoleImages.length;
+  document.getElementById("lightbox-img").src = autoEcoleImages[currentImgIndex];
+}
+
+function showNextImg() {
+  currentImgIndex = (currentImgIndex + 1) % autoEcoleImages.length;
+  document.getElementById("lightbox-img").src = autoEcoleImages[currentImgIndex];
+}
+
+function closeLightbox() {
+  document.getElementById("lightbox").style.display = "none";
+}
+
+// Fonction pour le dashboard (fonction simple d'affichage)
+function dashboard(imgSrc) {
+  // Ouvre la lightbox avec une seule image
+  document.getElementById("lightbox-img").src = imgSrc;
+  document.getElementById("lightbox").style.display = "flex";
+  
+  // Désactive la navigation pour une seule image
+  document.getElementById("lightbox-prev").onclick = null;
+  document.getElementById("lightbox-next").onclick = null;
+  document.getElementById("lightbox-prev").style.display = "none";
+  document.getElementById("lightbox-next").style.display = "none";
+}
+
+// Animation des particules
 function createParticles() {
   const particlesContainer = document.getElementById("particles");
   const particleCount = 50;
@@ -76,7 +138,7 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   });
 });
 
-// Header scroll effect and active link
+// Header scroll effect et active link
 window.addEventListener("scroll", function () {
   const header = document.querySelector(".header");
   const sections = document.querySelectorAll(".section, .hero");
@@ -109,7 +171,33 @@ window.addEventListener("scroll", function () {
   });
 });
 
-// Intersection Observer for animations
+// Filtres de projets
+function initProjectFilters() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const projectCards = document.querySelectorAll('.project-card');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Remove active class from all buttons
+      filterBtns.forEach(b => b.classList.remove('active'));
+      // Add active class to clicked button
+      btn.classList.add('active');
+
+      const filterValue = btn.getAttribute('data-filter');
+
+      projectCards.forEach(card => {
+        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+          card.style.display = 'block';
+          card.style.animation = 'fadeInUp 0.5s ease forwards';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+}
+
+// Intersection Observer pour les animations
 const observerOptions = {
   threshold: 0.1,
   rootMargin: "0px 0px -50px 0px",
@@ -123,54 +211,130 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 
-// Observe animated elements
-document
-  .querySelectorAll(".project-card, .skill-card, .timeline-item")
-  .forEach((el) => {
+// Observer les éléments animés
+function observeAnimatedElements() {
+  document.querySelectorAll(".project-card, .tech-category, .contact-item").forEach((el) => {
     observer.observe(el);
   });
+}
 
-// Project card hover effects
-document.querySelectorAll(".project-card").forEach((card) => {
-  card.addEventListener("mouseenter", function () {
-    this.style.transform = "translateY(-15px) scale(1.02)";
-  });
+// Effets hover sur les cartes de projet
+function initProjectCardEffects() {
+  document.querySelectorAll(".project-card").forEach((card) => {
+    card.addEventListener("mouseenter", function () {
+      this.style.transform = "translateY(-12px) scale(1.02)";
+    });
 
-  card.addEventListener("mouseleave", function () {
-    this.style.transform = "translateY(0) scale(1)";
+    card.addEventListener("mouseleave", function () {
+      this.style.transform = "translateY(0) scale(1)";
+    });
   });
+}
+
+// Initialisation des événements lightbox
+function initLightboxEvents() {
+  const closeBtn = document.getElementById("lightbox-close");
+  const lightbox = document.getElementById("lightbox");
+  
+  if (closeBtn) {
+    closeBtn.onclick = () => {
+      closeLightbox();
+      // Réaffiche les boutons de navigation
+      document.getElementById("lightbox-prev").style.display = "block";
+      document.getElementById("lightbox-next").style.display = "block";
+    };
+  }
+  
+  if (lightbox) {
+    lightbox.onclick = function (e) {
+      if (e.target === this) {
+        closeLightbox();
+        // Réaffiche les boutons de navigation
+        document.getElementById("lightbox-prev").style.display = "block";
+        document.getElementById("lightbox-next").style.display = "block";
+      }
+    };
+  }
+
+  // Gestion des touches du clavier pour la lightbox
+  document.addEventListener('keydown', function(e) {
+    const lightbox = document.getElementById("lightbox");
+    if (lightbox.style.display === "flex") {
+      if (e.key === 'Escape') {
+        closeLightbox();
+        document.getElementById("lightbox-prev").style.display = "block";
+        document.getElementById("lightbox-next").style.display = "block";
+      } else if (e.key === 'ArrowLeft') {
+        const prevBtn = document.getElementById("lightbox-prev");
+        if (prevBtn.onclick) prevBtn.onclick();
+      } else if (e.key === 'ArrowRight') {
+        const nextBtn = document.getElementById("lightbox-next");
+        if (nextBtn.onclick) nextBtn.onclick();
+      }
+    }
+  });
+}
+
+// Initialisation au chargement de la page
+document.addEventListener("DOMContentLoaded", function () {
+  // Créer les particules
+  createParticles();
+  
+  // Initialiser les filtres de projets
+  initProjectFilters();
+  
+  // Initialiser les effets des cartes
+  initProjectCardEffects();
+  
+  // Observer les éléments animés
+  observeAnimatedElements();
+  
+  // Initialiser les événements lightbox
+  initLightboxEvents();
+  
+  // Gestion de l'image d'avatar
+  initAvatarImage();
+  
+  console.log("Portfolio initialized successfully!");
 });
 
-// Skill items hover effects
-document.querySelectorAll(".skill-item").forEach((item) => {
-  item.addEventListener("mouseenter", function () {
-    this.style.background = "var(--gradient-accent)";
-    this.style.color = "white";
-    this.style.transform = "scale(1.05)";
-  });
+// Gestion de l'image d'avatar
+function initAvatarImage() {
+  const avatarImage = document.querySelector('.avatar-image');
+  const heroAvatar = document.querySelector('.hero-avatar');
+  
+  if (avatarImage) {
+    avatarImage.addEventListener('error', function() {
+      console.log("Erreur de chargement de l'image d'avatar");
+      // Créer un placeholder si l'image ne charge pas
+      const placeholder = document.createElement('div');
+      placeholder.className = 'avatar-placeholder';
+      placeholder.innerHTML = '<i class="fas fa-user"></i>';
+      
+      // Remplacer l'image par le placeholder
+      this.style.display = 'none';
+      if (heroAvatar && !heroAvatar.querySelector('.avatar-placeholder')) {
+        heroAvatar.appendChild(placeholder);
+      }
+    });
+    
+    avatarImage.addEventListener('load', function() {
+      console.log("Image d'avatar chargée avec succès");
+      // Supprimer le placeholder s'il existe
+      const placeholder = heroAvatar?.querySelector('.avatar-placeholder');
+      if (placeholder) {
+        placeholder.remove();
+      }
+    });
+  }
+}
 
-  item.addEventListener("mouseleave", function () {
-    this.style.background = "rgba(255, 255, 255, 0.1)";
-    this.style.color = "var(--light)";
-    this.style.transform = "scale(1)";
-  });
-});
-
-// Initialize particles
-createParticles();
-
-// Dynamic typing effect for code preview
-const codeLines = document.querySelectorAll(".code-line");
-codeLines.forEach((line, index) => {
-  line.style.animationDelay = 1 + index * 0.2 + "s";
-});
-
-// Contact buttons interaction
-document.querySelectorAll(".btn").forEach((button) => {
-  button.addEventListener("click", function (e) {
-    // Create ripple effect
+// Effet de ripple sur les boutons
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('btn') || e.target.classList.contains('filter-btn')) {
+    const button = e.target;
     const ripple = document.createElement("span");
-    const rect = this.getBoundingClientRect();
+    const rect = button.getBoundingClientRect();
     const size = Math.max(rect.width, rect.height);
     const x = e.clientX - rect.left - size / 2;
     const y = e.clientY - rect.top - size / 2;
@@ -185,63 +349,28 @@ document.querySelectorAll(".btn").forEach((button) => {
     ripple.style.animation = "ripple 0.6s ease-out";
     ripple.style.pointerEvents = "none";
 
-    this.appendChild(ripple);
+    // S'assurer que le bouton a une position relative
+    if (getComputedStyle(button).position === 'static') {
+      button.style.position = 'relative';
+    }
+    button.style.overflow = 'hidden';
+
+    button.appendChild(ripple);
 
     setTimeout(() => {
       ripple.remove();
     }, 600);
-  });
-});
-
-// Lightbox multi-images pour la div autoEcole
-const autoEcoleImages = [
-  "img/autoEcole.png",
-  "img/Gestion/1.png",
-  "img/Gestion/2.png",
-  "img/Gestion/3.png",
-  "img/Gestion/4.png",
-  "img/Gestion/5.png",
-  "img/Gestion/6.png",
-];
-let currentImgIndex = 0;
-
-function openLightbox(imgSrc) {
-  currentImgIndex = autoEcoleImages.indexOf(imgSrc);
-  if (currentImgIndex === -1) currentImgIndex = 0;
-  document.getElementById("lightbox-img").src =
-    autoEcoleImages[currentImgIndex];
-  document.getElementById("lightbox").style.display = "flex";
-}
-
-function closeLightbox() {
-  document.getElementById("lightbox").style.display = "none";
-}
-
-function showPrevImg() {
-  currentImgIndex =
-    (currentImgIndex - 1 + autoEcoleImages.length) % autoEcoleImages.length;
-  document.getElementById("lightbox-img").src =
-    autoEcoleImages[currentImgIndex];
-}
-
-function showNextImg() {
-  currentImgIndex = (currentImgIndex + 1) % autoEcoleImages.length;
-  document.getElementById("lightbox-img").src =
-    autoEcoleImages[currentImgIndex];
-}
-
-// Initialisation des événements lightbox après chargement du DOM
-document.addEventListener("DOMContentLoaded", function () {
-  var closeBtn = document.getElementById("lightbox-close");
-  var prevBtn = document.getElementById("lightbox-prev");
-  var nextBtn = document.getElementById("lightbox-next");
-  var lightbox = document.getElementById("lightbox");
-  if (closeBtn) closeBtn.onclick = closeLightbox;
-  if (prevBtn) prevBtn.onclick = showPrevImg;
-  if (nextBtn) nextBtn.onclick = showNextImg;
-  if (lightbox) {
-    lightbox.onclick = function (e) {
-      if (e.target === this) closeLightbox();
-    };
   }
 });
+
+// Animation CSS pour l'effet ripple
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes ripple {
+    to {
+      transform: scale(4);
+      opacity: 0;
+    }
+  }
+`;
+document.head.appendChild(style);
