@@ -788,7 +788,7 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
   const IS_MOBILE = window.innerWidth < 992;
   const ZOOM_X = IS_MOBILE ? 49 : 540;
   const LIST_X = IS_MOBILE ? 108 : 108;
-  const SPREAD = IS_MOBILE ? 190 : 430;
+  const SPREAD = IS_MOBILE ? 190 : 250;
   const groups = [ { a: 0, b: 1 }, { a: 2, b: 3 }, { a: 4, b: 6 }, { a: 7, b: 7 } ];
   const params = [
     { Z: 0.7, H: 0.5, O: 0.4, G: 0.2, END: 0.7 },
@@ -921,7 +921,11 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
           }
         } else {
           holdY[g] = null;
-          clocks[g] = Math.min(total, clocks[g] + dt);
+          if (g > 0 && clocks[g] === 0 && y < M.tg[g]){
+            clocks[g] = 0;
+          } else {
+            clocks[g] = Math.min(total, clocks[g] + dt);
+          }
         }
       }
       if (clocks[g] > 0 && clocks[g] < total && activeG < 0){
