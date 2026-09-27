@@ -848,18 +848,6 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
     if (clamping && frontier >= 0){
       e.preventDefault();
       e.stopImmediatePropagation();
-      if (window.lenis && typeof e.deltaY === 'number'){
-        let delta = e.deltaY;
-        if (e.deltaMode === 1){ delta *= 33; }
-        if (e.deltaMode === 2){ delta *= 100; }
-        window.lenis.animatedScroll = Math.min(window.lenis.animatedScroll, lockFloor);
-        window.lenis.targetScroll = Math.max(0, Math.min(lockFloor, window.lenis.animatedScroll + delta));
-        window.lenis.velocity = 0;
-        window.lenis.lastVelocity = 0;
-      }
-    } else if (clamping){
-      e.preventDefault();
-      e.stopImmediatePropagation();
     }
   }
   window.addEventListener('wheel', blockScroll, { capture: true, passive: false });
@@ -978,16 +966,7 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
     const moreEl = document.getElementById('more-projects');
     if (moreEl){ moreEl.classList.toggle('visible', frontier < 0 && y > M.tg[groups.length - 1] - 100); }
     if (frontier >= 0){
-      if (y < prevY && y >= lockFloor - 5 && clamping){
-        if (window.lenis){
-          window.lenis.targetScroll = prevY;
-          window.lenis.animatedScroll = prevY;
-        }
-        document.documentElement.scrollTop = prevY;
-        document.body.scrollTop = prevY;
-      }
       lockFloor = Math.max(lockFloor, lockMax);
-      if (window.lenis && window.lenis.targetScroll > lockFloor){ window.lenis.targetScroll = lockFloor; }
       const pastEnd = y > M.tg[groups.length - 1] + 400;
       if (y >= lockFloor && (y - lockFloor > 300 || pastEnd)){
         for (let g = 0; g < groups.length; g++){ clocks[g] = groupTotal(g); }
@@ -996,17 +975,23 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
         lockFloor = 0;
       } else if (y >= lockFloor) {
         clamping = true;
-          if (window.lenis && window.lenis.scrollTo){
-            window.lenis.targetScroll = lockFloor;
-            window.lenis.animatedScroll = Math.min(window.lenis.animatedScroll, lockFloor);
-            window.lenis.velocity = 0;
-            window.lenis.lastVelocity = 0;
-          }
+        if (window.lenis && !window.lenis.isStopped){
+          window.lenis.stop();
+          window.lenis.isStopped = true;
+        }
       } else {
         clamping = false;
+        if (window.lenis && window.lenis.isStopped){
+          window.lenis.start();
+          window.lenis.isStopped = false;
+        }
       }
     } else {
       clamping = false;
+      if (window.lenis && window.lenis.isStopped){
+        window.lenis.start();
+        window.lenis.isStopped = false;
+      }
       lockFloor = 0;
     }
     const k = 1 - Math.exp(-dt * 1.8);
