@@ -923,6 +923,8 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
               if (t >= hs && t < he){ jump = he; break; }
             }
             clocks[g] = jump !== null ? Math.min(total, jump + 0.001) : Math.min(total, t + dt);
+            holdY[g] = null;
+            holdStartT[g] = 0;
           }
         } else {
           holdY[g] = null;
@@ -971,7 +973,7 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
     const moreEl = document.getElementById('more-projects');
     if (moreEl){ moreEl.classList.toggle('visible', frontier < 0 && y > M.tg[groups.length - 1] - 100); }
     if (frontier >= 0){
-      lockFloor = Math.max(lockFloor, lockMax);
+      lockFloor = Math.max(lockFloor, lockMax, y);
       if (window.lenis && window.lenis.targetScroll > lockFloor){ window.lenis.targetScroll = lockFloor; }
       const pastEnd = y > M.tg[groups.length - 1] + 400;
       if (y >= lockFloor && (y - lockFloor > 300 || pastEnd)){
@@ -982,14 +984,11 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
       } else if (y >= lockFloor) {
         clamping = true;
           if (window.lenis && window.lenis.scrollTo){
-            window.lenis.scrollTo(lockFloor, { immediate: true });
             window.lenis.targetScroll = lockFloor;
-            window.lenis.animatedScroll = lockFloor;
+            window.lenis.animatedScroll = Math.min(window.lenis.animatedScroll, lockFloor);
             window.lenis.velocity = 0;
             window.lenis.lastVelocity = 0;
           }
-          document.documentElement.scrollTop = lockFloor;
-          document.body.scrollTop = lockFloor;
       } else {
         clamping = false;
       }
