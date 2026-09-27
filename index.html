@@ -865,6 +865,7 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
   window.addEventListener('wheel', blockScroll, { capture: true, passive: false });
   window.addEventListener('touchmove', blockScroll, { capture: true, passive: false });
   let lastT = 0;
+  let prevY = 0;
   function update(now){
     const dt = Math.min(0.05, lastT ? (now - lastT) / 1000 : 0.016);
     lastT = now;
@@ -925,6 +926,10 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
             clocks[g] = jump !== null ? Math.min(total, jump + 0.001) : Math.min(total, t + dt);
             holdY[g] = null;
             holdStartT[g] = 0;
+            if (window.lenis && window.lenis.targetScroll < y){
+              window.lenis.targetScroll = y;
+              window.lenis.animatedScroll = Math.max(window.lenis.animatedScroll, y);
+            }
           }
         } else {
           holdY[g] = null;
@@ -973,7 +978,15 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
     const moreEl = document.getElementById('more-projects');
     if (moreEl){ moreEl.classList.toggle('visible', frontier < 0 && y > M.tg[groups.length - 1] - 100); }
     if (frontier >= 0){
-      lockFloor = Math.max(lockFloor, lockMax, y);
+      if (y < prevY && y >= lockFloor - 5 && clamping){
+        if (window.lenis){
+          window.lenis.targetScroll = prevY;
+          window.lenis.animatedScroll = prevY;
+        }
+        document.documentElement.scrollTop = prevY;
+        document.body.scrollTop = prevY;
+      }
+      lockFloor = Math.max(lockFloor, lockMax);
       if (window.lenis && window.lenis.targetScroll > lockFloor){ window.lenis.targetScroll = lockFloor; }
       const pastEnd = y > M.tg[groups.length - 1] + 400;
       if (y >= lockFloor && (y - lockFloor > 300 || pastEnd)){
@@ -1077,6 +1090,7 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
       if (revealClocks[i] < REVEAL_TIME){ E_holdY[i] = null; }
       revealRow(i, ease(cl(revealClocks[i] / REVEAL_TIME)));
     }
+    prevY = y;
   }
   document.querySelectorAll('.faq-acc-head').forEach(head => {
     head.addEventListener('click', () => {
@@ -1087,9 +1101,6 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
     });
   });
   function loop(now){ update(now); requestAnimationFrame(loop); }
-  setInterval(() => {
-    window.__state = { clocks: clocks.slice(), env: +S.env.toFixed(3), Sps: S.ps.map(v => +v.toFixed(2)) };
-  }, 200);
   badges.forEach((b, idx) => {
     b.style.cursor = 'pointer';
     b.addEventListener('click', () => {
