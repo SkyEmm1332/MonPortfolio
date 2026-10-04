@@ -905,7 +905,7 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
             reviewIdx = -1;
             holdY[g] = null;
           }
-          else if (y >= holdY[g] + ADVANCE && (now - holdStartT[g]) / 1000 >= H_MIN){
+          else if ((y >= holdY[g] + ADVANCE || (now - holdStartT[g]) / 1000 >= H_MIN) && (now - holdStartT[g]) / 1000 >= H_MIN * 0.4){
             let jump = null;
             for (let j = 0; j < n; j++){
               const hs = starts[j] + P.Z, he = hs + P.H;
