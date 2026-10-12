@@ -855,14 +855,20 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
   let frontier = -1;
   let scrollCumul = 0;
   let userScrollRelease = false;
+  let lastTouchY = 0;
   function blockScroll(e){
-    if (clamping && frontier >= 0){
+    if (clamping && frontier >= 0 && holdY[frontier] !== null){
       e.preventDefault();
       e.stopImmediatePropagation();
-      if (typeof e.deltaY === 'number' && e.deltaY > 0 && holdY[frontier] !== null){
-        let delta = e.deltaY;
+      let delta = 0;
+      if (typeof e.deltaY === 'number'){
+        delta = e.deltaY;
         if (e.deltaMode === 1){ delta *= 33; }
         if (e.deltaMode === 2){ delta *= 100; }
+      } else if (e.touches && e.touches[0]){
+        delta = lastTouchY - e.touches[0].clientY;
+      }
+      if (delta > 0){
         scrollCumul += delta;
         if (scrollCumul >= ADVANCE){
           scrollCumul = 0;
@@ -873,6 +879,9 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
   }
   window.addEventListener('wheel', blockScroll, { capture: true, passive: false });
   window.addEventListener('touchmove', blockScroll, { capture: true, passive: false });
+  window.addEventListener('touchstart', (e) => {
+    if (e.touches && e.touches[0]) lastTouchY = e.touches[0].clientY;
+  }, { capture: true, passive: true });
   let lastT = 0;
   let prevY = 0;
   function update(now){
