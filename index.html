@@ -1080,7 +1080,7 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
         list.style.pointerEvents = 'none';
       }
       const reviewHide = reviewG >= 0 && i !== reviewIdx;
-      const badgeShow = reviewHide ? 0 : (visited[i] || S.pins[i] > 0.02);
+      const badgeShow = reviewHide ? 0 : (IS_MOBILE && !completed ? 0 : (visited[i] || S.pins[i] > 0.02));
       badges[i].classList.toggle('visited', visited[i]);
       badges[i].style.pointerEvents = completed ? 'auto' : 'none';
       const bNames = ['SITEC','Consult&#8217;','MEMORI','TraceMobile','TodoList','MyIA','KYRACE','Portfolio v2'];
@@ -1089,7 +1089,7 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
         badges[i].setAttribute('data-txt', bTxt);
         badges[i].innerHTML = bTxt;
       }
-      badges[i].style.opacity = badgeShow ? 1 : S.pins[i];
+      badges[i].style.opacity = badgeShow ? 1 : 0;
       badges[i].style.transform = 'translate(' + (10 * (1 - S.pins[i])) + 'px, 0)';
       infos[i].style.opacity = cl((S.ps[i] - 0.45) / 0.35);
       infos[i].style.transform = 'translateY(' + S.spreads[i] + 'px)';
