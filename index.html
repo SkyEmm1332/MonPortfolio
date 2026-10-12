@@ -844,10 +844,22 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
   let clamping = false;
   let lockFloor = 0;
   let frontier = -1;
+  let scrollCumul = 0;
+  let userScrollRelease = false;
   function blockScroll(e){
     if (clamping && frontier >= 0){
       e.preventDefault();
       e.stopImmediatePropagation();
+      if (typeof e.deltaY === 'number' && e.deltaY > 0 && holdY[frontier] !== null){
+        let delta = e.deltaY;
+        if (e.deltaMode === 1){ delta *= 33; }
+        if (e.deltaMode === 2){ delta *= 100; }
+        scrollCumul += delta;
+        if (scrollCumul >= ADVANCE){
+          scrollCumul = 0;
+          userScrollRelease = true;
+        }
+      }
     }
   }
   window.addEventListener('wheel', blockScroll, { capture: true, passive: false });
@@ -898,14 +910,8 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
           if (t >= starts[j] + P.Z && t < starts[j] + P.Z + P.H){ inHold = true; break; }
         }
         if (inHold){
-          if (holdY[g] === null){ holdY[g] = y; holdStartT[g] = now; }
-          if (reviewG === g && y >= holdY[g] + ADVANCE){
-            clocks[g] = total;
-            reviewG = -1;
-            reviewIdx = -1;
-            holdY[g] = null;
-          }
-          else if ((y >= holdY[g] + ADVANCE || (now - holdStartT[g]) / 1000 >= H_MIN) && (now - holdStartT[g]) / 1000 >= H_MIN * 0.4){
+          if (holdY[g] === null){ holdY[g] = y; holdStartT[g] = now; scrollCumul = 0; }
+          if (userScrollRelease && g === frontier){
             let jump = null;
             for (let j = 0; j < n; j++){
               const hs = starts[j] + P.Z, he = hs + P.H;
@@ -914,18 +920,17 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
             clocks[g] = jump !== null ? Math.min(total, jump + 0.001) : Math.min(total, t + dt);
             holdY[g] = null;
             holdStartT[g] = 0;
-            if (window.lenis && window.lenis.targetScroll < y){
-              window.lenis.targetScroll = y;
-              window.lenis.animatedScroll = Math.max(window.lenis.animatedScroll, y);
-            }
+            userScrollRelease = false;
+          }
+          else if (reviewG === g && y >= holdY[g] + ADVANCE){
+            clocks[g] = total;
+            reviewG = -1;
+            reviewIdx = -1;
+            holdY[g] = null;
           }
         } else {
           holdY[g] = null;
-          if (g > 0 && clocks[g] === 0 && y < M.tg[g]){
-            clocks[g] = 0;
-          } else {
-            clocks[g] = Math.min(total, clocks[g] + dt);
-          }
+          clocks[g] = Math.min(total, clocks[g] + dt);
         }
       }
       if (clocks[g] > 0 && clocks[g] < total && activeG < 0){
