@@ -1080,7 +1080,7 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
         list.style.pointerEvents = 'none';
       }
       const reviewHide = reviewG >= 0 && i !== reviewIdx;
-      const badgeShow = reviewHide ? 0 : (IS_MOBILE && !completed ? 0 : (visited[i] || S.pins[i] > 0.02));
+      const badgeShow = reviewHide ? 0 : (IS_MOBILE ? (visited[i] && S.ps[i] < 0.05 ? 1 : 0) : (visited[i] || S.pins[i] > 0.02));
       badges[i].classList.toggle('visited', visited[i]);
       badges[i].style.pointerEvents = completed ? 'auto' : 'none';
       const bNames = ['SITEC','Consult&#8217;','MEMORI','TraceMobile','TodoList','MyIA','KYRACE','Portfolio v2'];
