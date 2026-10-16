@@ -939,6 +939,10 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
             holdY[g] = null;
             holdStartT[g] = 0;
             userScrollRelease = false;
+            if (window.lenis){
+              window.lenis.targetScroll = y;
+              window.lenis.animatedScroll = y;
+            }
           }
           else if (reviewG === g && y >= holdY[g] + ADVANCE){
             clocks[g] = total;
