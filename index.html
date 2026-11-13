@@ -857,8 +857,9 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
   let userScrollRelease = false;
   let lastTouchY = 0;
   function blockScroll(e){
-    if (clamping && frontier >= 0 && holdY[frontier] !== null){
+    if (clamping && frontier >= 0){
       e.preventDefault();
+      if (holdY[frontier] === null) return;
       e.stopImmediatePropagation();
       let delta = 0;
       if (typeof e.deltaY === 'number'){
@@ -995,7 +996,7 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
     if (frontier >= 0){
       lockFloor = Math.max(lockFloor, lockMax);
       const pastEnd = y > M.tg[groups.length - 1] + 400;
-      if (y >= lockFloor && (y - lockFloor > 300 || pastEnd)){
+      if (y >= lockFloor && (y - lockFloor > Math.max(300, window.innerHeight) || pastEnd)){
         for (let g = 0; g < groups.length; g++){ clocks[g] = groupTotal(g); }
         for (let v = 0; v < N; v++){ visited[v] = true; }
         clamping = false;

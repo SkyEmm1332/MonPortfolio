@@ -49,6 +49,13 @@ Toujours vérifier ici si un comportement semble étrange : il a peut-être une 
 - **Solution** : le hold ne se libère QUE par le scroll de l'utilisateur (`userScrollRelease` posé par blockScroll quand le cumul atteint ADVANCE=40px)
 - **Ne pas remettre de libération automatique par le temps**
 
+### 17. Réalisations marquées « déjà visitées » d'un coup sur mobile (fling)
+- **Symptôme** : sur mobile, un swipe/fling rapide marque les 8 réalisations comme visitées d'un coup (badges « Réalisation X — nom »), la timeline ne s'anime plus
+- **Cause** : l'échappatoire `y - lockFloor > 300` (skip global) se déclenchait dès 300px au-delà du verrou, alors qu'un fling tactile dépasse facilement cette distance avant que le clamp ne s'engage ; de plus le scroll n'était pas bloqué pendant la phase de zoom (`blockScroll` exigeait `holdY !== null`)
+- **Solution** : seuil de skip proportionnel à l'écran `Math.max(300, window.innerHeight)` (un fling normal ne saute plus) + `blockScroll` bloque le scroll pendant tout le clamp (pas seulement pendant le hold). Le skip volontaire (arriver après la timeline / `pastEnd`) reste actif
+- **Fichier** : index.html, bloc clamp + fonction `blockScroll`
+- **Ne pas** redescendre le seuil sous `window.innerHeight` ni retirer le blocage pendant le zoom
+
 ---
 
 ## Cartes empilées (section Compétences)
