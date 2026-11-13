@@ -1160,4 +1160,47 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
   }
 })();
 </script>
+<script>
+(function(){
+  function scrollToTop(top){
+    top = Math.max(0, Math.round(top));
+    if (window.lenis && window.lenis.scrollTo){
+      window.lenis.scrollTo(top, { immediate: true });
+    } else {
+      window.scrollTo(0, top);
+    }
+  }
+  document.addEventListener('click', function(e){
+    var a = (e.target && e.target.closest) ? e.target.closest('a[href^="#"]') : null;
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href || href.length < 2) return;
+    var el = document.getElementById(href.slice(1));
+    if (!el) return;
+    e.preventDefault();
+    scrollToTop(el.getBoundingClientRect().top + window.scrollY);
+    var tries = 0;
+    var cancelled = false;
+    function onUserScroll(){ cancelled = true; cleanup(); }
+    function cleanup(){
+      window.removeEventListener('wheel', onUserScroll);
+      window.removeEventListener('touchmove', onUserScroll);
+      window.removeEventListener('keydown', onUserScroll);
+    }
+    window.addEventListener('wheel', onUserScroll, { passive: true });
+    window.addEventListener('touchmove', onUserScroll, { passive: true });
+    window.addEventListener('keydown', onUserScroll);
+    (function correct(){
+      if (cancelled) return;
+      tries++;
+      var rectTop = el.getBoundingClientRect().top;
+      var top = rectTop + window.scrollY;
+      if (Math.abs(top - window.scrollY) > 2 && Math.abs(rectTop) < 500){
+        scrollToTop(top);
+      }
+      if (tries < 6){ setTimeout(correct, 80); } else { cleanup(); }
+    })();
+  }, false);
+})();
+</script>
 </body></html>

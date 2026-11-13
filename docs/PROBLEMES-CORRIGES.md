@@ -56,6 +56,13 @@ Toujours vérifier ici si un comportement semble étrange : il a peut-être une 
 - **Fichier** : index.html, bloc clamp + fonction `blockScroll`
 - **Ne pas** redescendre le seuil sous `window.innerHeight` ni retirer le blocage pendant le zoom
 
+### 18. Liens d'ancre (navbar/footer) qui s'arrêtent avant la section
+- **Symptôme** : cliquer « Certifications » (ou Expériences, Contact…) depuis le haut fait défiler puis se fige à mi-chemin, ~1 500 px avant la section
+- **Cause** : le smooth-scroll natif de l'ancre traverse la timeline ; le clamp appelle `lenis.stop()` et gèle le défilement avant qu'il n'atteigne la cible (course entre l'animation et le clamp)
+- **Solution** : intercepter les clics `a[href^="#"]` (script avant `</body>`), `preventDefault()`, puis saut via l'API publique `lenis.scrollTo(top, { immediate: true })`. Une boucle de re-mesure (6 × 80 ms) corrige le décalage de mise en page provoqué par l'état « timeline terminée » (mobile : +235 px) ; elle est annulée dès `wheel`/`touchmove`/`keydown` pour ne jamais se battre avec le scroll de l'utilisateur
+- **Fichier** : index.html, dernier `<script>` avant `</body>`
+- **Ne pas** réécrire les internes de Lenis (utiliser `scrollTo`, pas `targetScroll`)
+
 ---
 
 ## Cartes empilées (section Compétences)
