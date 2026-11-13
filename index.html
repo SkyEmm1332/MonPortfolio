@@ -857,9 +857,8 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
   let userScrollRelease = false;
   let lastTouchY = 0;
   function blockScroll(e){
-    if (clamping && frontier >= 0){
+    if (clamping && frontier >= 0 && holdY[frontier] !== null){
       e.preventDefault();
-      if (holdY[frontier] === null) return;
       e.stopImmediatePropagation();
       let delta = 0;
       if (typeof e.deltaY === 'number'){
@@ -996,7 +995,7 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
     if (frontier >= 0){
       lockFloor = Math.max(lockFloor, lockMax);
       const pastEnd = y > M.tg[groups.length - 1] + 400;
-      if (y >= lockFloor && (y - lockFloor > Math.max(300, window.innerHeight) || pastEnd)){
+      if (y >= lockFloor && (y - lockFloor > 300 || pastEnd)){
         for (let g = 0; g < groups.length; g++){ clocks[g] = groupTotal(g); }
         for (let v = 0; v < N; v++){ visited[v] = true; }
         clamping = false;
@@ -1158,49 +1157,6 @@ WEBFLOW GLOBAL TABLE SYSTEM (RESPONSIVE)
       if (window.lenis){ window.lenis.scrollTo(0, { duration: 0.8 }); }
     });
   }
-})();
-</script>
-<script>
-(function(){
-  function scrollToTop(top){
-    top = Math.max(0, Math.round(top));
-    if (window.lenis && window.lenis.scrollTo){
-      window.lenis.scrollTo(top, { immediate: true });
-    } else {
-      window.scrollTo(0, top);
-    }
-  }
-  document.addEventListener('click', function(e){
-    var a = (e.target && e.target.closest) ? e.target.closest('a[href^="#"]') : null;
-    if (!a) return;
-    var href = a.getAttribute('href');
-    if (!href || href.length < 2) return;
-    var el = document.getElementById(href.slice(1));
-    if (!el) return;
-    e.preventDefault();
-    scrollToTop(el.getBoundingClientRect().top + window.scrollY);
-    var tries = 0;
-    var cancelled = false;
-    function onUserScroll(){ cancelled = true; cleanup(); }
-    function cleanup(){
-      window.removeEventListener('wheel', onUserScroll);
-      window.removeEventListener('touchmove', onUserScroll);
-      window.removeEventListener('keydown', onUserScroll);
-    }
-    window.addEventListener('wheel', onUserScroll, { passive: true });
-    window.addEventListener('touchmove', onUserScroll, { passive: true });
-    window.addEventListener('keydown', onUserScroll);
-    (function correct(){
-      if (cancelled) return;
-      tries++;
-      var rectTop = el.getBoundingClientRect().top;
-      var top = rectTop + window.scrollY;
-      if (Math.abs(top - window.scrollY) > 2 && Math.abs(rectTop) < 500){
-        scrollToTop(top);
-      }
-      if (tries < 6){ setTimeout(correct, 80); } else { cleanup(); }
-    })();
-  }, false);
 })();
 </script>
 </body></html>

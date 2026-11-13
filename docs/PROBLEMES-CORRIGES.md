@@ -49,20 +49,6 @@ Toujours vérifier ici si un comportement semble étrange : il a peut-être une 
 - **Solution** : le hold ne se libère QUE par le scroll de l'utilisateur (`userScrollRelease` posé par blockScroll quand le cumul atteint ADVANCE=40px)
 - **Ne pas remettre de libération automatique par le temps**
 
-### 17. Réalisations marquées « déjà visitées » d'un coup sur mobile (fling)
-- **Symptôme** : sur mobile, un swipe/fling rapide marque les 8 réalisations comme visitées d'un coup (badges « Réalisation X — nom »), la timeline ne s'anime plus
-- **Cause** : l'échappatoire `y - lockFloor > 300` (skip global) se déclenchait dès 300px au-delà du verrou, alors qu'un fling tactile dépasse facilement cette distance avant que le clamp ne s'engage ; de plus le scroll n'était pas bloqué pendant la phase de zoom (`blockScroll` exigeait `holdY !== null`)
-- **Solution** : seuil de skip proportionnel à l'écran `Math.max(300, window.innerHeight)` (un fling normal ne saute plus) + `blockScroll` bloque le scroll pendant tout le clamp (pas seulement pendant le hold). Le skip volontaire (arriver après la timeline / `pastEnd`) reste actif
-- **Fichier** : index.html, bloc clamp + fonction `blockScroll`
-- **Ne pas** redescendre le seuil sous `window.innerHeight` ni retirer le blocage pendant le zoom
-
-### 18. Liens d'ancre (navbar/footer) qui s'arrêtent avant la section
-- **Symptôme** : cliquer « Certifications » (ou Expériences, Contact…) depuis le haut fait défiler puis se fige à mi-chemin, ~1 500 px avant la section
-- **Cause** : le smooth-scroll natif de l'ancre traverse la timeline ; le clamp appelle `lenis.stop()` et gèle le défilement avant qu'il n'atteigne la cible (course entre l'animation et le clamp)
-- **Solution** : intercepter les clics `a[href^="#"]` (script avant `</body>`), `preventDefault()`, puis saut via l'API publique `lenis.scrollTo(top, { immediate: true })`. Une boucle de re-mesure (6 × 80 ms) corrige le décalage de mise en page provoqué par l'état « timeline terminée » (mobile : +235 px) ; elle est annulée dès `wheel`/`touchmove`/`keydown` pour ne jamais se battre avec le scroll de l'utilisateur
-- **Fichier** : index.html, dernier `<script>` avant `</body>`
-- **Ne pas** réécrire les internes de Lenis (utiliser `scrollTo`, pas `targetScroll`)
-
 ---
 
 ## Cartes empilées (section Compétences)
